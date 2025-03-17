@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Digital Clock & Stopwatch</title>
+</head>
+
+<body>
+  <main class="main-container">
+
+    <!-- || CLOCK -->
+    <div class="clock-container">
+      <h1>Digital Clock</h1>
+      <p class="clock">00:00:00</p>
+    </div>
+
+    <!-- || STOPWATCH -->
+    <div class="stopwatch-container">
+      <h1>Stopwatch</h1>
+      <p class="stopwatch-display">00:00:00:00</p>
+      <div>
+        <button class="start-btn" data-action="start">Start</button>
+        <button class="stop-btn" data-action="stop">Stop</button>
+        <button class="reset-btn" data-action="reset">Reset</button>
+      </div>
+    </div>
+
+    <!-- || CALCULATOR -->
+    <div class="calculator-container">
+      <h1>Calculator</h1>
+      <input type="text" placeholder="0" readonly>
+      <div>
+        <button data-action="AC">AC</button>
+        <button data-action="DEL">DEL</button>
+        <button>%</button>
+        <button>/</button>
+      </div>
+      <div>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>*</button>
+      </div>
+      <div>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>-</button>
+      </div>
+      <div>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>+</button>
+      </div>
+      <div>
+        <button>00</button>
+        <button>0</button>
+        <button>.</button>
+        <button data-action="=">=</button>
+      </div>
+    </div>
+
+    <!-- || TO-DO LIST APP -->
+    <div class="todo-app-container">
+      <h1>To-Do List</h1>
+      <div class="todo-input-container">
+        <input type="text" placeholder="Add a new task" class="task-input">
+        <button class="add-task-btn">Add Task</button>
+      </div>
+
+      <div class="todo-display">
+        <ul class="task-list">
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="clock.js"></script>
+  <script src="stopwatch.js"></script>
+  <script src="calculator.js"></script>
+  <script src="todo-app.js"></script>
+</body>
+
+</html>
