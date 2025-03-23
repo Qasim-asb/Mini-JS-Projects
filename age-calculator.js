@@ -24,42 +24,52 @@ const setDefaultDateTime = () => {
 window.addEventListener("DOMContentLoaded", setDefaultDateTime);
 
 const toggleInputs = (disabled) => {
-  cd.disabled = disabled;
-  ct.disabled = disabled;
-  dob.disabled = disabled;
-  bt.disabled = disabled;
+  [cd, ct, dob, bt].forEach(input => (input.disabled = disabled));
+};
+
+const displayResult = (year, month, day, hour, minute) => {
+  let result = [];
+
+  if (year > 0) result.push(`${year} ${year === 1 ? "year" : "years"}`);
+  if (month > 0) result.push(`${month} ${month === 1 ? "month" : "months"}`);
+  if (day > 0) result.push(`${day} ${day === 1 ? "day" : "days"}`);
+  if (hour > 0) result.push(`${hour} ${hour === 1 ? "hour" : "hours"}`);
+  if (minute > 0) result.push(`${minute} ${minute === 1 ? "minute" : "minutes"}`);
+
+  if (result.length === 0) {
+    resultText.textContent = "You were just born! Welcome to the world! 🌍";
+  } else {
+    resultText.textContent = `You are ${result.join(", ")} old.`;
+  }
+
+  resultText.style.color = "#4b6cb7";
+  calculateBtn.textContent = "OK";
+  toggleInputs(true);
+};
+
+const showError = (message) => {
+  resultText.textContent = message;
+  resultText.style.color = "#f44336";
 };
 
 const calculateAge = () => {
   let year, month, day, hour, minute;
 
   const currentDate = cd.value;
-  const [currentYearStr, currentMonthStr, currentDayStr] = currentDate.split('-');
-  let currentYear = Number(currentYearStr);
-  let currentMonth = Number(currentMonthStr);
-  let currentDay = Number(currentDayStr);
-
   const currentTime = ct.value;
-  const [currentHourStr, currentMinuteStr] = currentTime.split(':');
-  let currentHour = Number(currentHourStr);
-  const currentMinute = Number(currentMinuteStr);
-
   const birthDate = dob.value;
-  const [birthYearStr, birthMonthStr, birthDayStr] = birthDate.split('-');
-  const birthYear = Number(birthYearStr);
-  const birthMonth = Number(birthMonthStr);
-  const birthDay = Number(birthDayStr);
-
   const birthTime = bt.value;
-  const [birthHourStr, birthMinuteStr] = birthTime.split(':');
-  const birthHour = Number(birthHourStr);
-  const birthMinute = Number(birthMinuteStr);
 
   if (!currentDate || !birthDate || !currentTime || !birthTime) {
-    resultText.textContent = "Please select both the current date/time and your birth date/time.";
-    resultText.style.color = "#f44336";
+    showError("Please select both the current date/time and your birth date/time.");
     return;
   }
+
+  let [currentYear, currentMonth, currentDay] = currentDate.split('-').map(Number);
+  let [currentHour, currentMinute] = currentTime.split(':').map(Number);
+  const [birthYear, birthMonth, birthDay] = birthDate.split('-').map(Number);
+  const [birthHour, birthMinute] = birthTime.split(':').map(Number);
+
 
   if (currentMinute >= birthMinute) {
     minute = currentMinute - birthMinute;
@@ -93,42 +103,15 @@ const calculateAge = () => {
   year = currentYear - birthYear;
 
   if (year < 0) {
-    resultText.textContent = "Current date must be after the date of birth.";
-    resultText.style.color = "#f44336";
+    showError("Current date must be after the date of birth.");
     return;
   } else {
-    let unit = year ? year : month ? month : day ? day : hour ? hour : minute ? minute : null;
-
-    switch (unit) {
-      case year:
-        resultText.textContent = `You are ${year} years, ${month} months, ${day} days, ${hour} hours, and ${minute} minutes old.`;
-        break;
-      case month:
-        resultText.textContent = `You are ${month} months, ${day} days, ${hour} hours, and ${minute} minutes old.`;
-        break;
-      case day:
-        resultText.textContent = `You are ${day} days, ${hour} hours, and ${minute} minutes old.`;
-        break;
-      case hour:
-        resultText.textContent = `You are ${hour} hours, and ${minute} minutes old.`;
-        break;
-      case minute:
-        resultText.textContent = `You are ${minute} minutes old.`;
-        break;
-      default:
-        resultText.textContent = "You were just born! Welcome to the world! 🌍";
-        break;
-    }
-
-    resultText.style.color = "#4b6cb7"
-    calculateBtn.textContent = "OK";
-    toggleInputs(true);
+    displayResult(year, month, day, hour, minute);
   }
 };
 
 const resetFunc = () => {
-  cd.value = "";
-  ct.value = "";
+  setDefaultDateTime();
   dob.value = "";
   bt.value = "";
   resultText.textContent = "";
