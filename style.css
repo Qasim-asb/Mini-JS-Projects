@@ -173,10 +173,13 @@ body {
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.todo-app-container button {
+  font-size: clamp(0.6875rem, 0.6005rem + 0.4348vw, 0.9375rem);
+}
+
 .todo-input-container .add-task-btn {
   border-radius: 0;
-  font-size: clamp(0.6875rem, 0.6005rem + 0.4348vw, 0.9375rem);
-  padding: 0.3em 0.6em;
+  padding-inline: 0.6em;
   background: #4caf50;
   color: #fff;
   transition: background 0.3s ease;
@@ -188,7 +191,7 @@ body {
 
 .todo-display {
   background: rgba(255, 255, 255, 0.8);
-  padding: 1.5em;
+  padding-block: 1.5em;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -207,15 +210,27 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.task-list li .delete-task-btn {
-  background: #f44336;
+.task-list li .remove-task-btn,
+.task-list li .edit-task-btn {
   color: #fff;
   padding: 0.3em 0.6em;
   transition: background 0.3s ease;
 }
 
-.task-list li button:hover {
+.task-list li .remove-task-btn {
+  background: #f44336;
+}
+
+.task-list li .remove-task-btn:hover {
   background: #e53935;
+}
+
+.task-list li .edit-task-btn {
+  background: #2196ee;
+}
+
+.task-list li .edit-task-btn:hover {
+  background: #426eb9;
 }
 
 /* || TIC-TAC-TOE GAME */
